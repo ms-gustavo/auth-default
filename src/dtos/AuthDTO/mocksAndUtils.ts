@@ -17,7 +17,7 @@ export const errorMock = (field: string, messages: string[]) => ({
   ]),
 });
 
-export const RegisterUserDTOMock = {
+export const UserDTOMock = {
   name: "Test User",
   email: "test@test.com",
   password: "password123",
