@@ -11,7 +11,6 @@ export function validateDTO(dtoClass: any) {
     const dtoInstance = plainToInstance(dtoClass, req.body);
 
     const errors: ValidationError[] = await validate(dtoInstance);
-    console.log(errors);
     if (errors.length > 0) {
       res.status(400).json({
         message: "Erro de validação",
