@@ -31,5 +31,4 @@ model UserTemp {
   role ROLE @default(USER)
   confirmId String @unique
   createdAt DateTime @default(now())
-  
 }
