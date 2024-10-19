@@ -4,7 +4,7 @@ import { AppError } from "../../shared/AppError";
 
 const user = UserRepository();
 
-export function FindUser() {
+export function FindUserService() {
   async function checkIfUserExists(email: string) {
     const userExists = await user.findByEmail(email);
 

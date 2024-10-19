@@ -1,21 +1,16 @@
 import { Request, Response } from "express";
-import { RegisterTempUserUseCase } from "../useCases/RegisterTempUser";
-import { RegisterUserDTO } from "../dtos/AuthDTO/register";
-import { AppError } from "../shared/AppError";
-import { serverStringErrorsAndCodes } from "../utils/serverStringErrorsAndCodes";
-import { RegisterUserUseCase } from "../useCases/RegisterUser";
-import { LoginUserDTO } from "../dtos/AuthDTO/login";
-import { LoginUserUseCase } from "../useCases/LoginUser";
+import { AppError } from "../../shared/AppError";
+import { serverStringErrorsAndCodes } from "../../utils/serverStringErrorsAndCodes";
+import { LoginUserDTO } from "../../dtos/AuthDTO/login";
+import { RegisterUserDTO } from "../../dtos/AuthDTO/register";
+import { UseCases } from "../../containers/AuthUseCasesContainer";
 
-const registerTempUserUseCase = RegisterTempUserUseCase();
-const registerUserUseCase = RegisterUserUseCase();
-const loginUserUseCase = LoginUserUseCase();
 export function AuthController() {
   async function registerTempUser(req: Request, res: Response): Promise<void> {
     const { name, email, password, role }: RegisterUserDTO = req.body;
 
     try {
-      const { message } = await registerTempUserUseCase.execute({
+      const { message } = await UseCases.registerTempUserUseCase.execute({
         name,
         email,
         password,
@@ -49,9 +44,8 @@ export function AuthController() {
     console.log("id", confirmId);
 
     try {
-      const { userWithoutPassword, token } = await registerUserUseCase.execute(
-        confirmId
-      );
+      const { userWithoutPassword, token } =
+        await UseCases.registerUserUseCase.execute(confirmId);
 
       if (!userWithoutPassword || !token) {
         throw new AppError(
@@ -79,10 +73,11 @@ export function AuthController() {
     const { email, password }: LoginUserDTO = req.body;
 
     try {
-      const { userWithoutPassword, token } = await loginUserUseCase.execute({
-        email,
-        password,
-      });
+      const { userWithoutPassword, token } =
+        await UseCases.loginUserUseCase.execute({
+          email,
+          password,
+        });
 
       if (!userWithoutPassword || !token) {
         throw new AppError(

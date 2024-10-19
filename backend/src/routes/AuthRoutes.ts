@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AuthController } from "../controllers/AuthController";
+import { AuthController } from "../controllers/Auth/AuthController";
 import { validateDTO } from "../middlewares/validateDTO";
 import { RegisterUserDTO } from "../dtos/AuthDTO/register";
 import { LoginUserDTO } from "../dtos/AuthDTO/login";

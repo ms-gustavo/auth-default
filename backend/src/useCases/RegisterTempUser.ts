@@ -4,23 +4,17 @@ import {
   RegisterUserProps,
   TempUserProps,
 } from "../interfaces/interface";
-import { TempUserRepository } from "../repositories/TempUserRepository";
 import { AppError } from "../shared/AppError";
 import { hashPassword } from "../shared/bcryptFunctions";
 import { serverStringErrorsAndCodes } from "../utils/serverStringErrorsAndCodes";
 import { AuthRegisterEmailNotification } from "../utils/emailMessages";
-import { EmailService } from "../services/Email/EmailService";
-import { FindUser } from "../services/User/FindUser";
-
-const tempUserRepo = TempUserRepository();
-const emailService = EmailService();
-const findUser = FindUser();
+import { Services } from "../containers/ServicesContainer";
+import { Repositories } from "../containers/RepositoryContainer";
 
 export function RegisterTempUserUseCase() {
   async function checkIfTempUserExists(email: string): Promise<void> {
-    const tempUserExists: TempUserProps | null = await tempUserRepo.findByEmail(
-      email
-    );
+    const tempUserExists: TempUserProps | null =
+      await Repositories.tempUserRepository.findByEmail(email);
 
     if (tempUserExists) {
       throw new AppError(
@@ -43,7 +37,7 @@ export function RegisterTempUserUseCase() {
       newConfirmationLink,
     });
 
-    await emailService.sendEmail({
+    await Services.emailService.sendEmail({
       email,
       subject: emailContent.subject,
       text: emailContent.text,
@@ -58,12 +52,12 @@ export function RegisterTempUserUseCase() {
   }: RegisterUserProps): Promise<{ message: string }> {
     const emailToLowerCase: string = email.toLowerCase();
     await checkIfTempUserExists(emailToLowerCase);
-    await findUser.checkIfUserExists(emailToLowerCase);
+    await Services.findUserService.checkIfUserExists(emailToLowerCase);
 
     const hashedPassword: string = await hashPassword(password);
     const confirmId: string = uuidv4();
 
-    await tempUserRepo.createTempUser({
+    await Repositories.tempUserRepository.createTempUser({
       name,
       email: emailToLowerCase,
       password: hashedPassword,
