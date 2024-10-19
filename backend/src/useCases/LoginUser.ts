@@ -27,7 +27,7 @@ export function LoginUserUseCase() {
 
     await checkIfPasswordIsCorrect(password, user);
 
-    const token = tokenService.generateToken(user);
+    const token = await tokenService.generateToken(user);
     const userWithoutPassword = { ...user };
     delete (userWithoutPassword as Partial<User>).password;
 
