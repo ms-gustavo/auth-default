@@ -14,7 +14,7 @@ export function RegisterTempUserUseCase() {
   async function checkIfTempUserExists(email: string): Promise<void> {
     const tempUserExists: TempUserProps | null =
       await Repositories.tempUserRepository.findByEmail(email);
-
+    console.log("tempUserExists", tempUserExists);
     if (tempUserExists) {
       throw new AppError(
         serverStringErrorsAndCodes.P2002.message,
@@ -51,6 +51,7 @@ export function RegisterTempUserUseCase() {
   }: RegisterUserProps): Promise<{ message: string }> {
     const emailToLowerCase: string = email.toLowerCase();
     await checkIfTempUserExists(emailToLowerCase);
+    console.log("passou");
     await Services.findUserService.checkIfUserExists(emailToLowerCase);
 
     const hashedPassword: string = await Services.bcryptService.hashPassword(

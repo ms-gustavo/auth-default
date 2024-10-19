@@ -7,7 +7,7 @@ import { generateHtmlTemplate } from "../shared/emailHtmlTemplate";
 export const AuthRegisterEmailNotification = ({
   name,
   newConfirmationLink,
-}: EmailServiceMessagesProps) => {
+}: EmailServiceMessagesProps): { subject: string; text: string } => {
   return {
     subject: `Confirme seu cadastro`,
     text: `Olá ${name}, \n\nClique no link para confirmar seu cadastro: ${newConfirmationLink}`,
@@ -19,7 +19,7 @@ export const AuthConfirmRegistrationEmailNotification = ({
   userName,
   email,
   site,
-}: HtmlTemplateProps) => {
+}: HtmlTemplateProps): { subject: string; html: string } => {
   return {
     subject: `Cadastro realizado com sucesso`,
     html: generateHtmlTemplate({

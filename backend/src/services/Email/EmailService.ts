@@ -24,7 +24,7 @@ export function EmailService() {
     text,
     html,
     attachments,
-  }: SendEmailProps) {
+  }: SendEmailProps): Promise<void> {
     const mailOptions = {
       from: emailUser,
       to: email,

@@ -12,7 +12,6 @@ export function TempUserRepository(): ITempUserRepository {
   async function findByConfirmId(
     confirmId: string
   ): Promise<TempUserProps | null> {
-    console.log("temp user repo findTempUserByConfirmId", confirmId);
     return await prisma.userTemp.findUnique({
       where: { confirmId },
     });

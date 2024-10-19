@@ -8,7 +8,7 @@ import { UseCases } from "../../containers/AuthUseCasesContainer";
 export function AuthController() {
   async function registerTempUser(req: Request, res: Response): Promise<void> {
     const { name, email, password, role }: RegisterUserDTO = req.body;
-
+    console.log("email", email);
     try {
       const { message } = await UseCases.registerTempUserUseCase.execute({
         name,
