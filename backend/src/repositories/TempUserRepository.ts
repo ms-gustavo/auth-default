@@ -1,14 +1,17 @@
 import prisma from "../../prisma/prisma";
-import { RegisterTempUserProps } from "../interfaces/interface";
+import { RegisterTempUserProps, TempUserProps } from "../interfaces/interface";
+import { ITempUserRepository } from "./ITempUserRepository";
 
-export function TempUserRepository() {
-  async function findByEmail(email: string) {
+export function TempUserRepository(): ITempUserRepository {
+  async function findByEmail(email: string): Promise<TempUserProps | null> {
     return await prisma.userTemp.findUnique({
       where: { email },
     });
   }
 
-  async function findByConfirmId(confirmId: string) {
+  async function findByConfirmId(
+    confirmId: string
+  ): Promise<TempUserProps | null> {
     return await prisma.userTemp.findUnique({
       where: { confirmId },
     });
@@ -20,7 +23,7 @@ export function TempUserRepository() {
     password,
     role,
     confirmId,
-  }: RegisterTempUserProps) {
+  }: RegisterTempUserProps): Promise<TempUserProps> {
     return await prisma.userTemp.create({
       data: {
         name,
@@ -32,7 +35,7 @@ export function TempUserRepository() {
     });
   }
 
-  async function deleteTempUser(email: string) {
+  async function deleteTempUser(email: string): Promise<TempUserProps> {
     return await prisma.userTemp.delete({
       where: { email },
     });

@@ -1,5 +1,19 @@
 import { ROLE } from "@prisma/client";
 
+export interface UserProps {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  role: ROLE;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface TempUserProps extends Omit<UserProps, "updatedAt"> {
+  confirmId: string;
+}
+
 export interface RegisterUserProps {
   name: string;
   email: string;
