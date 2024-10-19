@@ -36,7 +36,7 @@ export function EmailService() {
       await transporter.sendMail(mailOptions);
     } catch (error: unknown) {
       console.error(
-        `Erro ao enviar email para ${email}: ${error as Error}.message`
+        `Erro ao enviar email para ${email}: ${(error as Error).message}`
       );
       throw new AppError(
         serverStringErrorsAndCodes.P2029.message,

@@ -7,7 +7,7 @@ import {
   errorsMessages,
   UserDTOMock,
   removeKeyFromBody,
-} from "./mocksAndUtils";
+} from "./DTOsMocksAndUtils";
 
 describe("Create User DTO Validation", () => {
   let mockRequest: Partial<Request>;

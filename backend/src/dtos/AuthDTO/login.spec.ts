@@ -7,7 +7,7 @@ import {
   errorsMessages,
   removeKeyFromBody,
   UserDTOMock,
-} from "./mocksAndUtils";
+} from "./DTOsMocksAndUtils";
 
 describe.only("Login User DTO Validation", () => {
   let mockRequest: Partial<Request>;
