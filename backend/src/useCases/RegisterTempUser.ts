@@ -1,8 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import {
-  RegisterTempUserProps,
-  RegisterUserProps,
-} from "../interfaces/interface";
+import { RegisterUserProps } from "../interfaces/interface";
 import { TempUserRepository } from "../repositories/TempUserRepository";
 import { AppError } from "../shared/AppError";
 import { hashPassword } from "../shared/bcryptFunctions";
