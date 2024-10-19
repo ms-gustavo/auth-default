@@ -6,15 +6,17 @@ import { hashPassword } from "../shared/bcryptFunctions";
 import { serverStringErrorsAndCodes } from "../utils/serverStringErrorsAndCodes";
 import { AuthRegisterEmailNotification } from "../utils/emailMessages";
 import { EmailService } from "../services/Email/EmailService";
+import { FindUser } from "../services/User/FindUser";
 
 const tempUserRepo = TempUserRepository();
 const emailService = EmailService();
+const findUser = FindUser();
 
 export function RegisterTempUserUseCase() {
   async function checkIfTempUserExists(email: string) {
-    const userExists = await tempUserRepo.findByEmail(email);
+    const tempUserExists = await tempUserRepo.findByEmail(email);
 
-    if (userExists) {
+    if (tempUserExists) {
       throw new AppError(
         serverStringErrorsAndCodes.P2002.message,
         serverStringErrorsAndCodes.P2002.code
@@ -45,7 +47,7 @@ export function RegisterTempUserUseCase() {
   async function execute({ name, email, password, role }: RegisterUserProps) {
     const emailToLowerCase: string = email.toLowerCase();
     await checkIfTempUserExists(emailToLowerCase);
-    //TODO: Validação se usuário já existe
+    await findUser.checkIfUserExists(emailToLowerCase);
 
     const hashedPassword = await hashPassword(password);
     const confirmId = uuidv4();
