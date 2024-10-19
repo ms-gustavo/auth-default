@@ -5,7 +5,6 @@ import {
   TempUserProps,
 } from "../interfaces/interface";
 import { AppError } from "../shared/AppError";
-import { hashPassword } from "../shared/bcryptFunctions";
 import { serverStringErrorsAndCodes } from "../utils/serverStringErrorsAndCodes";
 import { AuthRegisterEmailNotification } from "../utils/emailMessages";
 import { Services } from "../containers/ServicesContainer";
@@ -54,7 +53,9 @@ export function RegisterTempUserUseCase() {
     await checkIfTempUserExists(emailToLowerCase);
     await Services.findUserService.checkIfUserExists(emailToLowerCase);
 
-    const hashedPassword: string = await hashPassword(password);
+    const hashedPassword: string = await Services.bcryptService.hashPassword(
+      password
+    );
     const confirmId: string = uuidv4();
 
     await Repositories.tempUserRepository.createTempUser({

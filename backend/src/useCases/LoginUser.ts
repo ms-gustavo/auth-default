@@ -1,13 +1,15 @@
 import { User } from "@prisma/client";
 import { LoginUserProps, UserProps } from "../interfaces/interface";
 import { AppError } from "../shared/AppError";
-import { comparePassword } from "../shared/bcryptFunctions";
 import { serverStringErrorsAndCodes } from "../utils/serverStringErrorsAndCodes";
 import { Services } from "../containers/ServicesContainer";
 
 export function LoginUserUseCase() {
   async function checkIfPasswordIsCorrect(password: string, user: UserProps) {
-    const isPasswordValid = await comparePassword(password, user.password);
+    const isPasswordValid = await Services.bcryptService.comparePassword(
+      password,
+      user.password
+    );
 
     if (!isPasswordValid) {
       throw new AppError(
