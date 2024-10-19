@@ -1,5 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
-import { RegisterUserProps } from "../interfaces/interface";
+import {
+  EmailContent,
+  RegisterUserProps,
+  TempUserProps,
+} from "../interfaces/interface";
 import { TempUserRepository } from "../repositories/TempUserRepository";
 import { AppError } from "../shared/AppError";
 import { hashPassword } from "../shared/bcryptFunctions";
@@ -13,8 +17,10 @@ const emailService = EmailService();
 const findUser = FindUser();
 
 export function RegisterTempUserUseCase() {
-  async function checkIfTempUserExists(email: string) {
-    const tempUserExists = await tempUserRepo.findByEmail(email);
+  async function checkIfTempUserExists(email: string): Promise<void> {
+    const tempUserExists: TempUserProps | null = await tempUserRepo.findByEmail(
+      email
+    );
 
     if (tempUserExists) {
       throw new AppError(
@@ -28,11 +34,11 @@ export function RegisterTempUserUseCase() {
     name: string,
     email: string,
     confirmId: string
-  ) {
-    const newConfirmationLink = `${process.env
+  ): Promise<void> {
+    const newConfirmationLink: string = `${process.env
       .CONFIRMATION_URL!}/auth/confirm/${confirmId}`;
 
-    const emailContent = AuthRegisterEmailNotification({
+    const emailContent: EmailContent = AuthRegisterEmailNotification({
       name,
       newConfirmationLink,
     });
@@ -44,13 +50,18 @@ export function RegisterTempUserUseCase() {
     });
   }
 
-  async function execute({ name, email, password, role }: RegisterUserProps) {
+  async function execute({
+    name,
+    email,
+    password,
+    role,
+  }: RegisterUserProps): Promise<{ message: string }> {
     const emailToLowerCase: string = email.toLowerCase();
     await checkIfTempUserExists(emailToLowerCase);
     await findUser.checkIfUserExists(emailToLowerCase);
 
-    const hashedPassword = await hashPassword(password);
-    const confirmId = uuidv4();
+    const hashedPassword: string = await hashPassword(password);
+    const confirmId: string = uuidv4();
 
     await tempUserRepo.createTempUser({
       name,

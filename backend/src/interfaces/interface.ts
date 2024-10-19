@@ -1,14 +1,16 @@
 import { ROLE } from "@prisma/client";
 
 export interface UserProps {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password: string;
   role: ROLE;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
+
+export interface UserWithoutPasswordProps extends Omit<UserProps, "password"> {}
 
 export interface TempUserProps extends Omit<UserProps, "updatedAt"> {
   confirmId: string;
@@ -35,6 +37,9 @@ export interface SendEmailProps {
     contentType: string;
   }[];
 }
+
+export interface EmailContent
+  extends Omit<SendEmailProps, "email" | "attachments"> {}
 
 export interface EmailServiceMessagesProps {
   name: string;

@@ -3,9 +3,10 @@ import { RegisterTempUserUseCase } from "../useCases/RegisterTempUser";
 import { RegisterUserDTO } from "../dtos/AuthDTO/register";
 import { AppError } from "../shared/AppError";
 import { serverStringErrorsAndCodes } from "../utils/serverStringErrorsAndCodes";
+import { RegisterUserUseCase } from "../useCases/RegisterUser";
 
 const registerTempUserUseCase = RegisterTempUserUseCase();
-
+const registerUserUseCase = RegisterUserUseCase();
 export function AuthController() {
   async function registerTempUser(req: Request, res: Response): Promise<void> {
     const { name, email, password, role }: RegisterUserDTO = req.body;
@@ -40,7 +41,39 @@ export function AuthController() {
     }
   }
 
+  async function registerUser(req: Request, res: Response): Promise<void> {
+    const { confirmId } = req.params as { confirmId: string };
+    console.log("id", confirmId);
+
+    try {
+      const { userWithoutPassword, token } = await registerUserUseCase.execute(
+        confirmId
+      );
+
+      if (!userWithoutPassword || !token) {
+        throw new AppError(
+          serverStringErrorsAndCodes.P2030.message,
+          serverStringErrorsAndCodes.P2030.code
+        );
+      }
+
+      res.status(201).json({ user: userWithoutPassword, token });
+      return;
+    } catch (error: unknown) {
+      if (error instanceof AppError) {
+        res.status(error.statusCode).json({ message: error.message });
+        return;
+      }
+      res.status(serverStringErrorsAndCodes.P500.code).json({
+        error: serverStringErrorsAndCodes.P500.message,
+        message: (error as Error).message,
+      });
+      return;
+    }
+  }
+
   return {
     registerTempUser,
+    registerUser,
   };
 }
