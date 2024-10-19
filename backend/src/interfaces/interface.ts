@@ -30,7 +30,8 @@ export interface RegisterTempUserProps extends RegisterUserProps {
 export interface SendEmailProps {
   email: string;
   subject: string;
-  text: string;
+  text?: string;
+  html?: string;
   attachments?: {
     filename: string;
     content: Buffer;
@@ -43,5 +44,12 @@ export interface EmailContent
 
 export interface EmailServiceMessagesProps {
   name: string;
-  newConfirmationLink: string;
+  newConfirmationLink?: string;
+}
+
+export interface HtmlTemplateProps {
+  service: string;
+  userName: string;
+  email: string;
+  site: string;
 }

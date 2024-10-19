@@ -22,6 +22,7 @@ export function EmailService() {
     email,
     subject,
     text,
+    html,
     attachments,
   }: SendEmailProps) {
     const mailOptions = {
@@ -29,6 +30,7 @@ export function EmailService() {
       to: email,
       subject,
       text,
+      html: html ? html : undefined,
       attachments: attachments ? attachments : undefined,
     };
 
