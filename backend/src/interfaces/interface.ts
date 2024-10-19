@@ -16,10 +16,13 @@ export interface TempUserProps extends Omit<UserProps, "updatedAt"> {
   confirmId: string;
 }
 
-export interface RegisterUserProps {
-  name: string;
+export interface LoginUserProps {
   email: string;
   password: string;
+}
+
+export interface RegisterUserProps extends LoginUserProps {
+  name: string;
   role?: ROLE;
 }
 

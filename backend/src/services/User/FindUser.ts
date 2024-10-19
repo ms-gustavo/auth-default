@@ -8,12 +8,14 @@ export function FindUser() {
   async function checkIfUserExists(email: string) {
     const userExists = await user.findByEmail(email);
 
-    if (userExists) {
+    if (!userExists) {
       throw new AppError(
         serverStringErrorsAndCodes.P2002.message,
         serverStringErrorsAndCodes.P2002.code
       );
     }
+
+    return userExists;
   }
 
   return {
