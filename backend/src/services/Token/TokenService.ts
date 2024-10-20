@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken";
-import { UserProps } from "../../interfaces/interface";
+import { ProviderUserProps, UserProps } from "../../interfaces/interface";
 
 export function TokenService() {
-  async function generateToken(user: UserProps): Promise<string> {
+  async function generateToken(
+    user: UserProps | ProviderUserProps
+  ): Promise<string> {
     const token = jwt.sign(
       { userId: user.id, role: user.role },
       process.env.JWT_SECRET!,

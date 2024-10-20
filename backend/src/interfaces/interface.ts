@@ -10,6 +10,13 @@ export interface UserProps {
   updatedAt?: Date;
 }
 
+export interface ProviderUserProps {
+  id: string;
+  name: string;
+  email?: string;
+  role: ROLE;
+}
+
 export interface UserWithoutPasswordProps extends Omit<UserProps, "password"> {}
 
 export interface TempUserProps extends Omit<UserProps, "updatedAt"> {
@@ -57,16 +64,7 @@ export interface HtmlTemplateProps {
   site: string;
 }
 
-export interface GitHubProfile {
-  id: string;
-  displayName: string;
-  username: string;
-  profileUrl: string;
-  emails: { value: string }[];
-  photos: { value: string }[];
-}
-
-export interface GitHubStrategyOptions {
+export interface ProviderStrategyOptionsProps {
   clientID: string;
   clientSecret: string;
   callbackURL: string;

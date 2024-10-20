@@ -51,7 +51,6 @@ export function RegisterTempUserUseCase() {
   }: RegisterUserProps): Promise<{ message: string }> {
     const emailToLowerCase: string = email.toLowerCase();
     await checkIfTempUserExists(emailToLowerCase);
-    console.log("passou");
     await Services.findUserService.checkIfUserExists(emailToLowerCase);
 
     const hashedPassword: string = await Services.bcryptService.hashPassword(
