@@ -27,5 +27,14 @@ router.get(
     res.redirect("/google-profile");
   }
 );
+// Github Auth
+router.get("/github", passport.authenticate("github"));
 
+router.get(
+  "/github/callback",
+  passport.authenticate("github", { failureRedirect: "/" }),
+  (req, res) => {
+    res.redirect("/github-profile");
+  }
+);
 export default router;

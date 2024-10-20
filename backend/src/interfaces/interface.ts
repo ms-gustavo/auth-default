@@ -56,3 +56,18 @@ export interface HtmlTemplateProps {
   email: string;
   site: string;
 }
+
+export interface GitHubProfile {
+  id: string;
+  displayName: string;
+  username: string;
+  profileUrl: string;
+  emails: { value: string }[];
+  photos: { value: string }[];
+}
+
+export interface GitHubStrategyOptions {
+  clientID: string;
+  clientSecret: string;
+  callbackURL: string;
+}
