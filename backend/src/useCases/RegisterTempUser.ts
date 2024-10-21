@@ -14,7 +14,6 @@ export function RegisterTempUserUseCase() {
   async function checkIfTempUserExists(email: string): Promise<void> {
     const tempUserExists: TempUserProps | null =
       await Repositories.tempUserRepository.findByEmail(email);
-    console.log("tempUserExists", tempUserExists);
     if (tempUserExists) {
       throw new AppError(
         serverStringErrorsAndCodes.P2002.message,
