@@ -32,10 +32,9 @@ router.get("/google/callback", (req, res, next) => {
       return;
     }
 
-    res.status(200).json({
-      user: data.user,
-      token: data.token,
-    });
+    res.redirect(
+      `http://localhost:5173/auth/google/callback?token=${data.token}`
+    );
   })(req, res, next);
 });
 // Github Auth
@@ -58,10 +57,11 @@ router.get("/github/callback", (req, res, next) => {
         return;
       }
 
-      res.status(200).json({
-        user: data.user,
-        token: data.token,
-      });
+      const user = encodeURIComponent(JSON.stringify(data.user));
+      console.log("USER", user);
+      res.redirect(
+        `http://localhost:5173/auth/google/callback?token=${data.token}&user=${user}`
+      );
     }
   )(req, res, next);
 });

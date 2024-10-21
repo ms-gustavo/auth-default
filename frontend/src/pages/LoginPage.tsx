@@ -1,6 +1,7 @@
 import React from "react";
 import LoginForm from "../components/LoginForm";
 import { useNavigate } from "react-router-dom";
+import ProvidersLogin from "../components/ProvidersLogin";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -13,14 +14,7 @@ const LoginPage: React.FC = () => {
           }}
         />
         <div className="text-center text-gray-500">ou</div>
-        <div className="space-y-2">
-          <button className="w-full px-4 py-2 text-black bg-gray-100 rounded-md hover:bg-gray-200">
-            Entrar com Google
-          </button>
-          <button className="w-full px-4 py-2 text-black bg-gray-100 rounded-md hover:bg-gray-200">
-            Entrar com GitHub
-          </button>
-        </div>
+        <ProvidersLogin />
       </div>
     </div>
   );
