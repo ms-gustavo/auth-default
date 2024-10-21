@@ -9,6 +9,7 @@ import AuthContext, { AuthProvider } from "./contexts/AuthContext";
 import LoginPage from "./pages/LoginPage";
 import ProtectedPage from "./pages/ProtectedPage";
 import RegisterPage from "./pages/RegisterPage";
+import ConfirmRegisterPage from "./pages/ConfirmRegisterPage";
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -24,6 +25,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/confirm/:confirmId" element={<ConfirmRegisterPage />} />
           <Route
             path="/protected"
             element={
