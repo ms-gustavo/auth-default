@@ -6,7 +6,7 @@ export interface AuthLayoutProps {
   footer: ReactNode;
 }
 
-export interface LoginFormProps {
+export interface FormProps {
   onSwitch: () => void;
 }
 

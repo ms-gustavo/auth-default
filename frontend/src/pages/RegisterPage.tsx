@@ -1,15 +1,15 @@
 import React from "react";
-import LoginForm from "../components/LoginForm";
+import RegisterForm from "../components/RegisterForm";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <LoginForm
+        <RegisterForm
           onSwitch={() => {
-            navigate("/register");
+            navigate("/");
           }}
         />
         <div className="text-center text-gray-500">ou</div>
@@ -26,4 +26,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import { LoginFormProps } from "../interfaces/interfaces";
+import { FormProps } from "../interfaces/interfaces";
 import AuthLayout from "./AuthLayout";
 import InputField from "./InputField";
 import AuthContext from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSwitch }) => {
+const LoginForm: React.FC<FormProps> = ({ onSwitch }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -24,8 +24,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitch }) => {
         password,
       });
       const { token } = response.data;
-      navigate("/protected");
       login(token);
+      navigate("/protected");
     } catch (error: unknown) {
       console.error(error);
       setError("Falha ao realizar login");
