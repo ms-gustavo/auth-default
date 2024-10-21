@@ -29,7 +29,7 @@ export function RegisterTempUserUseCase() {
     confirmId: string
   ): Promise<void> {
     const newConfirmationLink: string = `${process.env
-      .CONFIRMATION_URL!}/auth/confirm/${confirmId}`;
+      .CONFIRMATION_URL!}${confirmId}`;
 
     const emailContent: EmailContent = AuthRegisterEmailNotification({
       name,
