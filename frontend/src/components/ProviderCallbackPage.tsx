@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 
-const GoogleCallbackPage: React.FC = () => {
+const ProviderCallbackPage: React.FC = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -26,4 +26,4 @@ const GoogleCallbackPage: React.FC = () => {
   );
 };
 
-export default GoogleCallbackPage;
+export default ProviderCallbackPage;

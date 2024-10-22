@@ -12,7 +12,6 @@ const ConfirmRegisterPage: React.FC = () => {
   useEffect(() => {
     const confirmRegistration = async () => {
       try {
-        console.log("CHAMEI");
         const response = await axios.get(
           `http://localhost:3000/auth/confirm/${confirmId}`
         );

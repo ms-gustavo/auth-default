@@ -10,7 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import ProtectedPage from "./pages/ProtectedPage";
 import RegisterPage from "./pages/RegisterPage";
 import ConfirmRegisterPage from "./pages/ConfirmRegisterPage";
-import GoogleCallbackPage from "./components/GoogleCallbackPage";
+import ProviderCallbackPage from "./components/ProviderCallbackPage";
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -29,7 +29,11 @@ const App: React.FC = () => {
           <Route path="/confirm/:confirmId" element={<ConfirmRegisterPage />} />
           <Route
             path="/auth/google/callback"
-            element={<GoogleCallbackPage />}
+            element={<ProviderCallbackPage />}
+          />
+          <Route
+            path="/auth/github/callback"
+            element={<ProviderCallbackPage />}
           />
           <Route
             path="/protected"
