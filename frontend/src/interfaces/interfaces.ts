@@ -24,3 +24,9 @@ export interface AuthContextProps {
   login: (token: string) => void;
   logout: () => void;
 }
+
+export interface ProviderButtonProps {
+  icon: React.ReactNode;
+  label: string;
+  url: string;
+}

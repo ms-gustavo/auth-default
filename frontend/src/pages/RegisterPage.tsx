@@ -1,8 +1,8 @@
 import React from "react";
-import RegisterForm from "../components/RegisterForm";
+import RegisterForm from "../components/FormsComponents/RegisterForm";
 import { useNavigate } from "react-router-dom";
-import ProvidersLogin from "../components/ProvidersLogin";
-import ImageAuthComponent from "../components/ImageAuthComponent";
+import ProvidersLogin from "../components/ProvidersComponents/ProvidersLogin";
+import ImageAuthComponent from "../components/AuthComponents/ImageAuthComponent";
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();

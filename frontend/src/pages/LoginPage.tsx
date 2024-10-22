@@ -1,8 +1,8 @@
 import React from "react";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../components/FormsComponents/LoginForm";
 import { useNavigate } from "react-router-dom";
-import ProvidersLogin from "../components/ProvidersLogin";
-import ImageAuthComponent from "../components/ImageAuthComponent";
+import ProvidersLogin from "../components/ProvidersComponents/ProvidersLogin";
+import ImageAuthComponent from "../components/AuthComponents/ImageAuthComponent";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();

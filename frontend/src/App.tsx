@@ -10,7 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import ProtectedPage from "./pages/ProtectedPage";
 import RegisterPage from "./pages/RegisterPage";
 import ConfirmRegisterPage from "./pages/ConfirmRegisterPage";
-import ProviderCallbackPage from "./components/ProviderCallbackPage";
+import ProviderCallbackPage from "./components/ProvidersComponents/ProviderCallbackPage";
 import { Toaster } from "react-hot-toast";
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
