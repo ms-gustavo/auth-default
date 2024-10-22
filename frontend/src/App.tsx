@@ -11,6 +11,7 @@ import ProtectedPage from "./pages/ProtectedPage";
 import RegisterPage from "./pages/RegisterPage";
 import ConfirmRegisterPage from "./pages/ConfirmRegisterPage";
 import ProviderCallbackPage from "./components/ProviderCallbackPage";
+import { Toaster } from "react-hot-toast";
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -22,6 +23,7 @@ const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
 const App: React.FC = () => {
   return (
     <AuthProvider>
+      <Toaster />
       <Router>
         <Routes>
           <Route path="/" element={<LoginPage />} />

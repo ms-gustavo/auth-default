@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-
 import { FormProps } from "../interfaces/interfaces";
 import AuthLayout from "./AuthLayout";
 import InputField from "./InputField";
+import toast from "react-hot-toast";
 
 const RegisterForm: React.FC<FormProps> = ({ onSwitch }) => {
   const [name, setName] = useState<string>("");
@@ -11,12 +11,14 @@ const RegisterForm: React.FC<FormProps> = ({ onSwitch }) => {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError("");
 
     try {
+      setLoading(true);
       const response = await axios.post("http://localhost:3000/auth/register", {
         name,
         email,
@@ -28,11 +30,15 @@ const RegisterForm: React.FC<FormProps> = ({ onSwitch }) => {
       setSuccessMessage(response.data.message);
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
-        const errorMessage = error.response.data.message;
-        setError(errorMessage || "Falha ao realizar o cadastro");
+        const errorMessage: string =
+          error.response.data.message || "Falha ao realizar o cadastro";
+        toast.error(errorMessage);
+        setError(errorMessage);
       } else {
         setError("Falha ao realizar o cadastro");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,9 +86,11 @@ const RegisterForm: React.FC<FormProps> = ({ onSwitch }) => {
             />
             <button
               type="submit"
-              className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+              className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 ${
+                loading ? "cursor-not-allowed bg-gray-500" : ""
+              }`}
             >
-              Entrar
+              {loading ? "Aguarde..." : "Cadastrar"}
             </button>
           </form>
         </>
