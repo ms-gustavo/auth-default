@@ -1,9 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
 import { FormProps } from "../interfaces/interfaces";
 import AuthLayout from "./AuthLayout";
 import InputField from "./InputField";
-import toast from "react-hot-toast";
+import { handleApiError } from "../utils/errorHandler";
+import { serverRequests } from "../utils/serverRequests";
 
 const RegisterForm: React.FC<FormProps> = ({ onSwitch }) => {
   const [name, setName] = useState<string>("");
@@ -12,31 +12,24 @@ const RegisterForm: React.FC<FormProps> = ({ onSwitch }) => {
   const [error, setError] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
+  const { registerRequest } = serverRequests();
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError("");
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:3000/auth/register", {
-        name,
-        email,
-        password,
-      });
+      const response = await registerRequest(name, email, password);
       setName("");
       setEmail("");
       setPassword("");
       setSuccessMessage(response.data.message);
     } catch (error: unknown) {
-      if (axios.isAxiosError(error) && error.response) {
-        const errorMessage: string =
-          error.response.data.message || "Falha ao realizar o cadastro";
-        toast.error(errorMessage);
-        setError(errorMessage);
-      } else {
-        setError("Falha ao realizar o cadastro");
-      }
+      const errorMessage = handleApiError(
+        error,
+        "Falha ao realizar a operação"
+      );
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -59,7 +52,6 @@ const RegisterForm: React.FC<FormProps> = ({ onSwitch }) => {
       ) : (
         <>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {error && <p className="text-red-500">{error}</p>}
             <InputField
               label="Nome"
               type="text"
@@ -84,6 +76,7 @@ const RegisterForm: React.FC<FormProps> = ({ onSwitch }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {error && <p className="text-red-500">{error}</p>}
             <button
               type="submit"
               className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 ${

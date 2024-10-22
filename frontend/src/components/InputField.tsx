@@ -18,6 +18,7 @@ const InputField: React.FC<InputFieldProps> = ({
         id={id}
         className="w-full px-3 py-2 mt-1 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
         value={value}
+        maxLength={20}
         required={required}
         onChange={onChange}
       />

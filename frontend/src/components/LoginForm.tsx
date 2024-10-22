@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { FormProps } from "../interfaces/interfaces";
 import AuthLayout from "./AuthLayout";
 import InputField from "./InputField";
 import AuthContext from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import toast from "react-hot-toast";
+import { handleApiError } from "../utils/errorHandler";
+import { serverRequests } from "../utils/serverRequests";
 
 const LoginForm: React.FC<FormProps> = ({ onSwitch }) => {
   const [email, setEmail] = useState<string>("");
@@ -13,6 +14,7 @@ const LoginForm: React.FC<FormProps> = ({ onSwitch }) => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const { login } = useContext(AuthContext);
+  const { loginRequest } = serverRequests();
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -21,31 +23,17 @@ const LoginForm: React.FC<FormProps> = ({ onSwitch }) => {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:3000/auth/login", {
-        email,
-        password,
-      });
+      const response = await loginRequest(email, password);
       const { token } = response.data;
       login(token);
       navigate("/protected");
       toast.success("Login realizado com sucesso, redirecionando...");
     } catch (error: unknown) {
-      if (axios.isAxiosError(error) && error.response) {
-        let errorMessage;
-        if (error.response.data.message !== "Erro de validação") {
-          errorMessage =
-            error.response.data.message || "Falha ao realizar o login";
-          toast.error(errorMessage);
-          setError(errorMessage);
-        }
-        errorMessage =
-          error.response.data.errors[0].errors[0] ||
-          "Falha ao realizar o cadastro";
-        toast.error(errorMessage);
-        setError(errorMessage);
-      } else {
-        setError("Falha ao realizar o cadastro");
-      }
+      const errorMessage = handleApiError(
+        error,
+        "Falha ao realizar a operação"
+      );
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -84,7 +72,7 @@ const LoginForm: React.FC<FormProps> = ({ onSwitch }) => {
         <button
           type="submit"
           className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 ${
-            loading ? "cursor-not-allowed bg-gray-500" : ""
+            loading ? "cursor-not-allowed bg-gray-500 hover:bg-gray-700" : ""
           }`}
         >
           {loading ? "Aguarde..." : "Entrar"}
