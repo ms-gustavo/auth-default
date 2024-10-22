@@ -101,7 +101,7 @@ GITHUB_CLIENT_SECRET=
         <pre><code>REACT_APP_API_BASE_URL=http://localhost:3000</code></pre>
       </li>
       <li>Inicie o servidor de desenvolvimento:
-        <pre><code>npm start</code></pre>
+        <pre><code>npm run dev</code></pre>
       </li>
     </ol>
 
@@ -113,8 +113,21 @@ GITHUB_CLIENT_SECRET=
       <li>Feedback visual com mensagens de erro e sucesso para o usuário.</li>
     </ul>
 
+
  <h2>Autenticação com OAuth2</h2>
-    <p>Para configurar a autenticação com OAuth2, siga os passos para o Google e o GitHub descritos anteriormente.</p>
+    <p>Para configurar a autenticação com OAuth2, siga os passos abaixo para configurar o Google e o GitHub como provedores:</p>
+    <h3>1. Google</h3>
+    <ul>
+      <li>Crie um novo projeto no <a href="https://console.developers.google.com/">Google Cloud Console</a>.</li>
+      <li>Ative a API Google+ ou Google Identity Platform.</li>
+      <li>Crie credenciais OAuth2 e configure os URIs de redirecionamento autorizados.</li>
+    </ul>
+
+ <h3>2. GitHub</h3>
+    <ul>
+      <li>Vá para <a href="https://github.com/settings/developers">GitHub Developer Settings</a> e crie um novo aplicativo OAuth.</li>
+      <li>Configure o <strong>Client ID</strong> e o <strong>Client Secret</strong> gerados para o GitHub.</li>
+    </ul>
 
  <h2>Melhorias Futuras</h2>
     <ul>
