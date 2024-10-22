@@ -1,101 +1,124 @@
-<h1>Auth Default</h1>
-<p>Auth Default é um projeto de backend em Node.js com TypeScript, que fornece uma solução de autenticação básica, incluindo o registro e a verificação de e-mails. O sistema permite a criação de usuários temporários, envia códigos de confirmação por e-mail e realiza a ativação da conta através de um link de confirmação. Agora, o projeto também suporta autenticação OAuth2 com provedores externos, como Google e GitHub.</p>
+<h1>Projeto Auth-Default</h1>
+    <p><strong>Auth-Default</strong> é uma solução completa de autenticação, incluindo backend em Node.js com TypeScript e frontend em React. O sistema oferece funcionalidades essenciais para registro e autenticação de usuários, verificação de e-mails, autenticação OAuth2 via Google e GitHub, e proteção de rotas com tokens JWT.</p>
 
-<p>Este projeto serve como uma solução para evitar a necessidade de criar a autenticação do zero em projetos futuros. Ele pode ser facilmente integrado em novas aplicações, economizando tempo e esforço.</p>
+<h2>Visão Geral</h2>
+    <p>O projeto é organizado em um repositório unificado com duas partes principais:</p>
+    <ul>
+      <li><strong>Backend:</strong> Localizado em <code>/backend</code>, fornece a API para autenticação e gerenciamento de usuários.</li>
+      <li><strong>Frontend:</strong> Localizado em <code>/frontend</code>, fornece a interface de usuário para o sistema de autenticação.</li>
+    </ul>
+     <p>O <strong>backend</strong> foi desenvolvido para ser uma solução robusta para gerenciar a autenticação de usuários, incluindo:</p>
+    <ul>
+      <li>Registro de usuários com e-mail e senha, incluindo envio de código de confirmação.</li>
+      <li>Verificação e ativação de conta através de link de confirmação.</li>
+      <li>Autenticação com OAuth2 utilizando provedores externos, como Google e GitHub.</li>
+    </ul>
+    <p>O <strong>frontend</strong> é uma interface de usuário moderna que facilita o acesso e a interação com o sistema de autenticação, suportando:</p>
+    <ul>
+      <li>Login e registro com formulários validados.</li>
+      <li>Autenticação via provedores externos (Google e GitHub).</li>
+      <li>Proteção de rotas utilizando token JWT armazenado em <code>localStorage</code>.</li>
+      <li>Feedback ao usuário com mensagens de sucesso ou erro, usando <code>toast</code>.</li>
+    </ul>
 
-<h2>Funcionalidades</h2>
-<ul>
-    <li>Registro de usuário com e-mail e senha</li>
-    <li>Envio de código de confirmação para o e-mail</li>
-    <li>Confirmação de registro via link enviado ao e-mail</li>
-    <li>Envio de e-mail de confirmação após o registro ser confirmado</li>
-    <li>Autenticação via OAuth2 com Google e GitHub</li>
-</ul>
+ <h2>Captura de Tela</h2>
+    <img src="https://github.com/user-attachments/assets/759e7897-35aa-49d5-a188-6d0ad6b83b26" alt="Captura de Tela do Projeto">
 
-<h2>Arquitetura do Projeto</h2>
-<pre>
-prisma/
-src/
-  ├── containers/            # Instanciamento de useCases, repositórios e serviços
-  ├── controllers/Auth       # Controladores relacionados à autenticação
-  ├── DTOS/AuthDTO           # Definições de Data Transfer Objects para autenticação
-  ├── interfaces/            # Interfaces utilizadas no projeto
-  ├── middlewares/           # Middleware para validação de DTO
-  ├── repositories/          # Repositórios para acesso aos dados
-  ├── routes/                # Definição das rotas de API
-  ├── services/              # Serviços compartilhados: Bcrypt, Email, Token, User, Passport
-  ├── shared/                # Código compartilhado/utilitário
-  ├── useCases/              # Casos de uso da aplicação
-  ├── utils/                 # Funções utilitárias
-  └── routes                 # Rotas de autenticação via OAuth
-        └── AuthRoutes.ts
-        └── ProviderRoutes.ts
-index.ts                     # Arquivo de entrada principal
-</pre>
+ <h2>Arquitetura do Backend</h2>
+    <pre>
+/backend
+  prisma/
+  src/
+    ├── containers/          # Instanciação de useCases, repositórios e serviços
+    ├── controllers/Auth     # Controladores de autenticação
+    ├── DTOS/AuthDTO         # Data Transfer Objects para autenticação
+    ├── middlewares/         # Middleware para validação de dados
+    ├── repositories/        # Repositórios de acesso a dados
+    ├── services/            # Serviços como Bcrypt, Email, Token, User
+    ├── routes/              # Definição das rotas da API
+    ├── useCases/            # Casos de uso
+    └── utils/               # Funções utilitárias
+  index.ts                   # Arquivo principal de entrada
+    </pre>
 
-<h2>Dependências</h2>
-<p>As principais dependências do projeto incluem:</p>
-<ul>
-    <li><strong>@prisma/client</strong> - ORM para acesso ao banco de dados</li>
-    <li><strong>bcryptjs</strong> - Criptografia de senhas</li>
-    <li><strong>class-validator</strong> - Validação de dados</li>
-    <li><strong>dotenv</strong> - Gerenciamento de variáveis de ambiente</li>
-    <li><strong>express</strong> - Framework para criação de servidores HTTP</li>
-    <li><strong>jsonwebtoken</strong> - Geração e verificação de tokens JWT</li>
-    <li><strong>nodemailer</strong> - Envio de e-mails</li>
-    <li><strong>passport</strong> - Middleware para autenticação</li>
-    <li><strong>passport-google-oauth20</strong> - Estratégia de autenticação OAuth2 para Google</li>
-    <li><strong>passport-github2</strong> - Estratégia de autenticação OAuth2 para GitHub</li>
-    <li><strong>express-session</strong> - Gerenciamento de sessões</li>
-</ul>
+ <h2>Arquitetura do Frontend</h2>
+    <pre>
+/frontend
+  src/
+    ├── assets/              # Arquivos estáticos como imagens e ícones
+    ├── components/          # Componentes reutilizáveis da interface
+    ├── contexts/            # Contextos para gerenciamento de estado, como autenticação
+    ├── interfaces/          # Tipos TypeScript para o projeto
+    ├── pages/               # Páginas do aplicativo
+    ├── utils/               # Funções utilitárias
+    ├── App.tsx              # Componente principal do aplicativo
+    ├── index.css            # Arquivo de estilos globais
+    ├── main.tsx             # Arquivo de entrada principal do React
+    └── vite-env.d.ts        # Configurações do Vite para TypeScript
+    </pre>
 
-<h2>Configuração e Uso</h2>
-<ol>
-    <li>Clone o repositório:
+ <h2>Configuração</h2>
+    <h3>Backend</h3>
+    <p>Siga os passos abaixo para configurar o backend:</p>
+    <ol>
+      <li>Clone o repositório:
         <pre><code>git clone https://github.com/ms-gustavo/auth-default.git</code></pre>
-    </li>
-    <li>Instale as dependências:
-        <pre><code>npm install</code></pre>
-    </li>
-    <li>Configure as variáveis de ambiente no arquivo <code>.env</code>, incluindo as credenciais para OAuth2:
+      </li>
+      <li>Navegue para o diretório <code>/backend</code> e instale as dependências:
+        <pre><code>cd backend && npm install</code></pre>
+      </li>
+      <li>Configure as variáveis de ambiente no arquivo <code>.env</code>:
         <pre><code>
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-GITHUB_CLIENT_ID=your_github_client_id
-GITHUB_CLIENT_SECRET=your_github_client_secret
+DATABASE_URL=
+PORT=
+EMAIL_USER=
+EMAIL_PASS=
+EMAIL_SERVICE=
+CONFIRMATION_URL=
+JWT_SECRET=
+SECRET_KEY=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
         </code></pre>
-    </li>
-    <li>Execute a geração do prisma
+      </li>
+      <li>Execute a geração do prisma:
         <pre><code>npx prisma generate</code></pre>
-    </li>
-    <li>Inicie o servidor:
+      </li>
+      <li>Inicie o servidor:
         <pre><code>npm run dev</code></pre>
-    </li>
-</ol>
+      </li>
+    </ol>
 
-<h2>Autenticação OAuth2 com Google e GitHub</h2>
-<p>Para configurar a autenticação via Google e GitHub, siga os passos abaixo:</p>
+<h3>Frontend</h3>
+    <p>Siga os passos abaixo para configurar o frontend:</p>
+    <ol>
+      <li>Navegue para o diretório <code>/frontend</code> e instale as dependências:
+        <pre><code>cd frontend && npm install</code></pre>
+      </li>
+      <li>Configure o arquivo <code>.env</code>:
+        <pre><code>REACT_APP_API_BASE_URL=http://localhost:3000</code></pre>
+      </li>
+      <li>Inicie o servidor de desenvolvimento:
+        <pre><code>npm start</code></pre>
+      </li>
+    </ol>
 
-<h3>1. Configuração do Google</h3>
-<ol>
-    <li>Crie um novo projeto no <a href="https://console.developers.google.com/">Google Cloud Console</a>.</li>
-    <li>Ative a API Google+ ou Google Identity Platform.</li>
-    <li>Crie credenciais de OAuth2 e obtenha o <strong>Client ID</strong> e o <strong>Client Secret</strong>.</li>
-    <li>Adicione o URI de redirecionamento autorizado, por exemplo, <code>http://localhost:3000/auth/google/callback</code>.</li>
-</ol>
+  <h2>Funcionalidades</h2>
+    <ul>
+      <li>Registro de usuário com verificação de e-mail e autenticação local.</li>
+      <li>Suporte para autenticação OAuth2 com Google e GitHub.</li>
+      <li>Proteção de rotas no frontend usando tokens JWT.</li>
+      <li>Feedback visual com mensagens de erro e sucesso para o usuário.</li>
+    </ul>
 
-<h3>2. Configuração do GitHub</h3>
-<ol>
-    <li>Vá para <a href="https://github.com/settings/developers">GitHub Developer Settings</a> e crie um novo OAuth App.</li>
-    <li>Preencha os detalhes do aplicativo e adicione o <strong>Callback URL</strong>, por exemplo, <code>http://localhost:3000/auth/github/callback</code>.</li>
-    <li>Obtenha o <strong>Client ID</strong> e o <strong>Client Secret</strong> gerados.</li>
-</ol>
+ <h2>Autenticação com OAuth2</h2>
+    <p>Para configurar a autenticação com OAuth2, siga os passos para o Google e o GitHub descritos anteriormente.</p>
 
-<h3>3. Testando as Rotas OAuth2</h3>
-<ul>
-    <li>Acesse <code>http://localhost:3000/auth/google</code> para iniciar o fluxo de autenticação com o Google.</li>
-    <li>Acesse <code>http://localhost:3000/auth/github</code> para iniciar o fluxo de autenticação com o GitHub.</li>
-</ul>
-
-<h2>Testes Futuros</h2>
-<p>Estão planejados a inclusão de testes, documentação e um front-end para proporcionar uma experiência de usuário completa e uma melhor integração no fluxo de trabalho de desenvolvimento.</p>
+ <h2>Melhorias Futuras</h2>
+    <ul>
+      <li>Adicionar mais provedores de autenticação OAuth2.</li>
+      <li>Implementar uma interface mais amigável e intuitiva.</li>
+      <li>Expandir os testes para cobrir mais funcionalidades e casos de uso.</li>
+    </ul>
