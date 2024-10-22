@@ -58,7 +58,6 @@ router.get("/github/callback", (req, res, next) => {
       }
 
       const user = encodeURIComponent(JSON.stringify(data.user));
-      console.log("USER", user);
       res.redirect(
         `http://localhost:5173/auth/google/callback?token=${data.token}&user=${user}`
       );
